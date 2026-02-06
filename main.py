@@ -75,10 +75,10 @@ try:
                                         break
                                     current_time_utc = datetime.now(timezone.utc)
                                     formatted_time = current_time_utc.strftime('%d.%m.%Y %H:%M:%S UTC+0')
-                                    debug_text = f"--------\n[{formatted_time}] FORWARDED FROM {event.user_id}:\n{event.text}\n--------\n\n"
+                                    debug_text = f"--------\n[{formatted_time}] FORWARDED FROM {event.user_id}:\n{event.message}\n--------\n\n"
 
                                     #output forwarded text
-                                    tgbot.send_message(TGCHAT, event.text)
+                                    tgbot.send_message(TGCHAT, event.message)
                                     write_msg(event.user_id, "Отправлено!", main_keyboard)
                                     print(debug_text)
 
@@ -89,11 +89,11 @@ try:
                     #     write_msg(event.user_id, f"{event.user_id}", 0)
 
                     else:
-                        write_msg(event.user_id, f"{event.text}", main_keyboard)
+                        write_msg(event.user_id, event.message, main_keyboard)
                 
                 else:
                     write_msg(event.user_id, "У вас нет доступа к этому боту", 0)
-                    write_msg(VKADMIN_ID, f"Trying [{event.user_id}]: {event.text}", 0) #отправка администратору попытку использования
+                    write_msg(VKADMIN_ID, f"Trying [{event.user_id}]: {event.message}", 0) #отправка администратору попытку использования
 
 except Exception as e:
     print(e)
